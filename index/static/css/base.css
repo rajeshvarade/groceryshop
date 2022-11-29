@@ -1,0 +1,76 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.container-fluid{
+    background-color: transparent whitesmoke;
+}
+
+div ul li:hover a{
+    
+    background-color: #ce0909;
+    color: white;
+}
+.main{
+    height: 600px;
+    background-image: url(/static/images/groceryb.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.offer{
+    color: blueviolet;
+}
+#mainbtn{
+    width: 90px;
+    color: white;
+    background-color: rgb(255, 0, 0);
+    border-radius: 15px;
+    font-weight: 400;
+    text-decoration: none;
+}
+#link{
+    text-decoration: none;
+    color: aliceblue;
+}
+.abtus{
+    color: blueviolet;
+}
+p{
+    color: black;
+    font-weight: 500;
+}
+.container{
+    padding-top: 100px;
+}
+.trending{
+    height: 500px;
+}
+.contactus{
+    background-color: rgb(45, 222, 45);
+}
+
+.btn-send-message {
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+    width: 80%;
+    margin-left: 3px;
+}
+.help-block.with-errors {
+    color: #ff5050;
+    margin-top: 5px
+}
+.card {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+    
+
+
+
+

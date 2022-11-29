@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block title %}
+  <title>online grocery shop</title>
+  {% endblock title %}
+
+  {% block style %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{% static 'css/base.css'%}">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link />
+  {% endblock style %}
+</head>
+
+<body>
+
+  {% block header %}
+  <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" target="_blank" href="#" ><b style="color: red;">Go</b><b style="color: green;">Fresh</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'about' %}">About</a>
+          </li>
+          
+          {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'signout' %}">Sign out</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'cart' %}">Cart</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'signin' %}">Sign in</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">Signup</a>
+            </li>
+          {% endif %}
+          
+         
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'product' %}">Product</a>
+          </li>
+        </ul>
+        <form action="/search/" method="POST" class="d-flex" >
+          {% csrf_token %}
+          
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="name" name="name">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+          
+        </form>
+      </div>
+    </div>
+  </nav>
+  {% endblock header %}
+
+  <!-- sign in form and sign up form -->
+  {% block signinform %}{% endblock signinform %}
+  {% block signupform %}{% endblock signupform %}
+  {% block cart %}{% endblock cart %}
+  {% block banner %}
+  <section class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <p class="m-0">Fresh And Organic !</p>
+          <h1 class="offer">Upto 50% Off</h1>
+          <div class="line"></div>
+          <p>Go Fresh provide food and drinks produced by method of standard organic farming,
+            which are healthy to eat and drink.
+          </p>
+          <button id="mainbtn" class="mbtn1 mt-4">Read more</button>
+          <button id="mainbtn" class="mbtn2">shop now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock banner %}
+
+  {% block greenproduct %}{% endblock greenproduct %}
+  <!---------about section------>
+  {% block about %}{% endblock about %}
+  {% block trending %}
+  <!-- <section class="trending">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <p>Go Fresh</p>
+          <h1 class="abtus">Trendging Products</h1>
+          <div class="line">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illo nostrum sit aliquid ea quae ut libero officiis expedita, doloremque amet quos eveniet voluptatibus perspiciatis. Delectus deleniti placeat sapiente sed?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  {% endblock trending %}
+  <!-----contactus-------->
+  {% block contact %}
+  <section>
+    <div class="container">
+      <div class=" text-center mt-5 ">
+        <h3>Feel free to contact us.</h3>
+      </div>
+      <div class="row">
+        <div class="col-lg-7 mx-auto">
+          <div class="card mt-2 mx-auto p-4 bg-light">
+            <div class="card-body bg-light">
+              <div class="container">
+                <form id="contact-form" role="form">
+                  <div class="controls">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group"> <label for="form_name">Firstname *</label> <input id="form_name"
+                            type="text" name="name" class="form-control" placeholder="John" required="required"
+                            data-error="Firstname is required."> </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group"> <label for="form_lastname">Lastname *</label> <input id="form_lastname"
+                            type="text" name="surname" class="form-control" placeholder="Smith" required="required"
+                            data-error="Lastname is required."> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group"> <label for="form_email">Email *</label> <input id="form_email"
+                            type="email" name="email" class="form-control" placeholder="johnsmith@abc.com"
+                            required="required" data-error="Valid email is required."> </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group"> <label for="form_need">Please specify your age group*</label> <select
+                            id="form_need" name="need" class="form-control" required="required"
+                            data-error="Please specify your age group.">
+                            <option value="" selected disabled>--Select Your Age Group--</option>
+                            <option>Less than 18</option>
+                            <option>Between 18 and 30</option>
+                            <option>Between 30 and 45</option>
+                            <option>Between 45 and 60</option>
+                            <option>Older than 60</option>
+                          </select> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group"> <label for="form_message">Write your message here*</label> <textarea
+                            id="form_message" name="message" class="form-control" placeholder="Write your message here."
+                            rows="4" required="required" data-error="Please, leave us a message."></textarea> </div>
+                      </div>
+                      <div class="col-md-12"> <input type="submit"
+                          class="btn btn-warning btn-send-message pt-2 btn-block " value="Send Message"> </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock contact %}
+  <!-------footer---------->
+  {% block footer %}
+  <footer class="text-center text-white" style="background-color: #f1f1f1;">
+    <!-- Grid container -->
+    <div class="container pt-4">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
+        <!-- Twitter -->
+        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
+
+        <!-- Google -->
+        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-google"></i></a>
+
+        <!-- Instagram -->
+        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+
+        <!-- Linkedin -->
+        <a class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="https://www.linkedin.com/in/rajesh-varade-75381623a/" role="button" data-mdb-ripple-color="dark"><i
+            class="fab fa-linkedin"></i></a>
+        <!-- Github -->
+        <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
+      </section>
+      <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2022 Copyright:
+      <a class="text-dark" href="https://mdbootstrap.com/">Gofresh.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  {% endblock footer %}
+
+
+</body>
+
+</html>

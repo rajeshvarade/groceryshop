@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} <title>About Us</title> {% endblock title %}
+{% block style %}
+   {% load static %}
+   {{block.super}}
+   <link rel="stylesheet" href="{% static 'css/about.css'%}">
+{% endblock style %}
+{% comment %} {% block header %}{% endblock header %} {% endcomment %}
+{% block banner %}{% endblock banner %}
+{% block trending %}{% endblock trending %}
+{% block about %}
+   <section class="about">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-5">
+               <p><b style="color: red;font-size: x-large;">Go</b><b style="color: green;font-size: x-large;">Fresh</b></p>
+               <h1 style="color: white;" class="abtus">About us</h1>
+               <div class="line">
+           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro illo nostrum sit aliquid ea quae ut libero officiis expedita, doloremque amet quos eveniet voluptatibus perspiciatis. Delectus deleniti placeat sapiente sed?</p>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+{% endblock about %}
+{% block greenproduct %}{% endblock greenproduct %}
+{% block contact %}{% endblock contact %}

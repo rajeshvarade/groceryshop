@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Green Productpyth {% endblock title %}
+{% block style %}
+   {% load static %}
+   {{block.super}}
+   <link rel="stylesheet" href="{% static 'css/green.css'%}">
+{% endblock style %}
+{% comment %} {% block header %}{% endblock header %} {% endcomment %}
+{% block banner %}{% endblock banner %}
+{% block greenproduct %} 
+    <section class="product bg-light">
+        <div class="row py-5 text-center">
+            <div class="col-lg-6 m-auto">
+                <h1 style="color: rgb(7, 145, 7);">Our Best Products</h1>
+            </div>
+        </div>  
+        <div class="row">
+            {% for product in data %}
+                <div class="col-lg-4 p-2">
+                    <div class="card">
+                        <div  class="card-body">
+                            <img src="{{product.image.url}}" class="card-img-top" alt="..." height="200">
+                            <div class="card-body">
+                            <h5 class="card-title">{{product.name}}</h5>
+                            <p class="per1">{{product.price}} Rs.{{product.unit}}</p>
+                            <a href="{% url 'addtocart' product.id %}" id="addtocartbtn" class="btn btn-primary">ADD TO CART</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            {% endfor %}
+        </div>       
+    </section>
+{% endblock greenproduct %}
+{% block trending %}{% endblock trending %}
+{% block about %}{% endblock about %}
+{% block contact %}{% endblock contact %}

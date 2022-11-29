@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %} <title>Cart</title> {% endblock title %}
+{% block style %}
+{% load static %}
+{{block.super}}
+<link rel="stylesheet" href="{% static 'css/cart.css'%}">
+{% endblock style %}
+
+{% block banner %}{% endblock banner %}
+{% block signinform %}{% endblock signinform %}
+{% block signupform %}{% endblock signupform %}
+{% block cart %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<button class="btn" id="pay-btn">Donate❤️</button>
+<script>
+    var options = {
+        "key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
+        "amount": 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Safe Payment",
+        "description": "{{product_name}}",
+
+        "order_id": "{{payment_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 2
+        "handler": function (response) {
+            alert(response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature);
+            document.getElementById('myform').submit();
+
+
+
+
+
+        },
+        "prefill": {
+            "name": "Chetan Varade",
+            "email": "chetanvarade@gmail.com",
+            "contact": "9766121543"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response) {
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+    });
+    document.getElementById('pay-btn').onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
+{% endblock cart %}
+{% block greenproduct %}{% endblock greenproduct %}
+{% block trending %}{% endblock trending %}
+{% block about %}{% endblock about %}
+{% block contact %}{% endblock contact %}

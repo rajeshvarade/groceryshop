@@ -1,0 +1,16 @@
+/* *{
+ 
+    box-sizing:border-box;
+} */
+#addtocartbtn{
+    outline: none;
+    border: none;
+    background-color: rgb(46, 232, 13);
+    border-radius: 50px;
+    margin: 0 auto;
+    display: block;
+}
+
+
+
+

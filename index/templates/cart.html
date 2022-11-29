@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block title %} <title>Cart</title> {% endblock title %}
+{% block style %}
+{% load static %}
+{{block.super}}
+<link rel="stylesheet" href="{% static 'css/cart.css'%}">
+{% endblock style %}
+
+{% block banner %}{% endblock banner %}
+{% block signinform %}{% endblock signinform %}
+{% block signupform %}{% endblock signupform %}
+{% block cart %}
+<section class="h-100 h-custom" style="background-color: #d2c9ff;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-8">
+                <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                    <h6 class="mb-0 text-muted">{{cart|length}} items</h6>
+                  </div>
+                  <hr class="my-4">
+
+                  {% for cart_item in cart %}
+                  <div class="row mb-4 d-flex justify-content-between align-items-center">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <img src="{{cart_item.image.url}}" class="img-fluid rounded-3" alt="image">
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                      <h6 class="text-muted">Grocery</h6>
+                      <h6 class="text-black mb-0">{{cart_item.name}}</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                      <button class="btn btn-link px-2"
+                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                        <i class="fas fa-minus"></i>
+                      </button>
+
+                      <input id="form1" min="0" name="quantity" value="1" type="number"
+                        class="form-control form-control-sm" />
+
+                      <button class="btn btn-link px-2"
+                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <h6 class="mb-0">₹ {{cart_item.price}}</h6>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                      <a href="{% url 'removefromcart' cart_item.id %}" class="text-muted"><i
+                          class="fas fa-times"></i></a>
+                    </div>
+                  </div>
+                  {% endfor %}
+
+                  <hr class="my-4">
+
+                  <div class="pt-5">
+                    <h6 class="mb-0"><a href="#!" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back
+                        to shop</a></h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 bg-grey">
+                <div class="p-5">
+                  <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                  <hr class="my-4">
+
+                  <div class="d-flex justify-content-between mb-4">
+                    <h5 class="text-uppercase">Total Items : {{cart|length}}</h5>
+                  </div>
+
+                  <h5 class="text-uppercase mb-3">Shipping : Free</h5>
+
+
+
+
+
+                  <hr class="my-4">
+
+
+
+                  <div class="mb-5">
+                    <div class="d-flex justify-content-between mb-5">
+                      <h5 class="text-uppercase">Total price</h5>
+                      <h5>{{total_price}}</h5>
+                    </div>
+                  </div>
+
+                  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                  <button class="btn btn-primary" type="button" id="pay-btn">Make Payment</button>
+                  <!-- <button class="btn" id="pay-btn">Donate❤️</button> -->
+                  <script>
+                    var options = {
+                      "key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
+                      "amount":"100", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                      "currency": "INR",
+                      "name": "Safe Payment",
+                      "description": "{{product_name}}",
+
+                      "order_id": "{{payment_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 2
+                      "handler": function (response) {
+                        alert(response.razorpay_payment_id);
+                        alert(response.razorpay_order_id);
+                        alert(response.razorpay_signature);
+                        document.getElementById('myform').submit();
+
+
+
+
+
+                      },
+                      "prefill": {
+                        "name": "Rajesh  Varade",
+                        "email": "rajeshvarade@gmail.com",
+                        "contact": "9766121543"
+                      },
+                      "notes": {
+                        "address": "Razorpay Corporate Office"
+                      },
+                      "theme": {
+                        "color": "#3399cc"
+                      }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.on('payment.failed', function (response) {
+                      alert(response.error.code);
+                      alert(response.error.description);
+                      alert(response.error.source);
+                      alert(response.error.step);
+                      alert(response.error.reason);
+                      alert(response.error.metadata.order_id);
+                      alert(response.error.metadata.payment_id);
+                    });
+                    document.getElementById('pay-btn').onclick = function (e) {
+                      rzp1.open();
+                      e.preventDefault();
+                    }
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock cart %}
+{% block greenproduct %}{% endblock greenproduct %}
+{% block trending %}{% endblock trending %}
+{% block about %}{% endblock about %}
+{% block contact %}{% endblock contact %}
